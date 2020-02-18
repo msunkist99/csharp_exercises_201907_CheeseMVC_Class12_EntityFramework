@@ -1,0 +1,38 @@
+﻿@model List<MK_CheeseMVC.Models.Cheese>
+
+<h1>My Cheese</h1>
+
+<p><a asp-controller="Cheese" asp-action="Add">Add Cheese</a></p>
+<p><a asp-controller="Cheese" asp-action="DeleteCheckbox">Delete Cheese Checkbox</a></p>
+<p><a asp-controller="Cheese" asp-action="DeleteDropdownList">Delete Cheese Dropdown List</a></p>
+
+@if (Model.Count == 0)
+{
+	<p>No cheeses yet!</p>
+}
+else
+{
+	<table class="table">
+
+		<tr>
+			<th></th>
+			<th>Name</th>
+			<th>Description</th>
+			<th>Cheese Type</th>
+			<th>Cheese Rating</th>
+		</tr>
+		
+		@foreach (var cheese in Model)
+		{
+			<tr>
+				<td>
+					<p><a asp-controller="Cheese" asp-action="Edit" asp-route-cheeseId="@cheese.CheeseId">Edit Cheese</a></p>
+				</td>
+				<td>@cheese.Name</td>
+				<td>@cheese.Description</td>
+				<td>@cheese.Type</td>
+				<td>@cheese.Rating</td>
+			</tr>
+		}
+	</table>
+}
