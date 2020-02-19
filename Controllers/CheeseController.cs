@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Data;
 using Microsoft.AspNetCore.Mvc;
 using MK_CheeseMVC.Models;
 using MK_CheeseMVC.ViewModels;
@@ -10,6 +11,13 @@ namespace MK_CheeseMVC.Controllers
 {
     public class CheeseController : Controller
     {
+        private CheeseDbContext context;
+
+        public CheeseController(CheeseDbContext dbContext)
+        {
+            context = dbContext;
+        }
+
         //static List<string> Cheeses = new List<string>();
         //static Dictionary<string, string> Cheeses = new Dictionary<string,string>();
         //static Dictionary<string, Cheese> Cheeses = new Dictionary<string, Cheese>();
@@ -17,7 +25,8 @@ namespace MK_CheeseMVC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            List<Cheese> cheeses = CheeseData.GetAll();
+            List<Cheese> cheeses = context.Cheeses.ToList();
+            //List<Cheese> cheeses = CheeseData.GetAll();
             //ViewBag.cheeses = CheeseData.GetAll();
             //ViewBag.error = null;
             return View(cheeses);
@@ -49,7 +58,9 @@ namespace MK_CheeseMVC.Controllers
                     Rating = addCheeseViewModel.Rating
                 };
 
-                CheeseData.Add(cheese);
+                //CheeseData.Add(cheese);
+                context.Cheeses.Add(cheese);
+                context.SaveChanges();
 
                 return Redirect("/Cheese");
             }
@@ -61,7 +72,9 @@ namespace MK_CheeseMVC.Controllers
         public IActionResult DeleteCheckbox()
         {
             ViewBag.title = "Remove Cheeses with Checkboxes";
-            ViewBag.cheeses = CheeseData.GetAll();
+            //ViewBag.cheeses = CheeseData.GetAll();
+            ViewBag.cheeses = context.Cheeses.ToList();
+
             return View();
         }
 
@@ -69,7 +82,9 @@ namespace MK_CheeseMVC.Controllers
         public IActionResult DeleteDropdownList()
         {
             ViewBag.title = "Remove Cheeses with Dropdown List";
-            ViewBag.cheeses = CheeseData.GetAll();
+            //ViewBag.cheeses = CheeseData.GetAll();
+            ViewBag.cheeses = context.Cheeses.ToList();
+
             return View();
         }
 
@@ -80,8 +95,11 @@ namespace MK_CheeseMVC.Controllers
 
             foreach (int cheeseId in cheeseIds)
             {
-                CheeseData.Remove(cheeseId);
+                //CheeseData.Remove(cheeseId);
+                context.Cheeses.Remove(context.Cheeses.Single(p => p.ID == cheeseId));
             }
+
+            context.SaveChanges();
 
             return Redirect("/Cheese");
         }
@@ -92,7 +110,8 @@ namespace MK_CheeseMVC.Controllers
             ViewBag.title = "Edit Cheeses";
             //ViewBag.cheese = CheeseData.GetById(cheeseId);
 
-            Cheese cheese = CheeseData.GetById(cheeseId);
+            //Cheese cheese = CheeseData.GetById(cheeseId);
+            Cheese cheese = context.Cheeses.Single(p => p.ID == cheeseId);
 
             EditCheeseViewModel editCheeseViewModel = new EditCheeseViewModel();
 
@@ -104,11 +123,15 @@ namespace MK_CheeseMVC.Controllers
         {
             if (ModelState.IsValid) 
             {
-                CheeseData.Remove(editCheeseViewModel.CheeseId);
+                //CheeseData.Remove(editCheeseViewModel.CheeseId);
+                context.Cheeses.Remove(context.Cheeses.Single(p => p.ID == editCheeseViewModel.CheeseId));
 
                 Cheese cheese = editCheeseViewModel.CreateCheese();
 
-                CheeseData.Add(cheese);
+                //CheeseData.Add(cheese);
+
+                context.Cheeses.Add(cheese);
+                context.SaveChanges();
 
                 return Redirect("/Cheese");
             }

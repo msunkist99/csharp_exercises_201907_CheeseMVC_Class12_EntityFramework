@@ -7,6 +7,7 @@ namespace MK_CheeseMVC.Models
 {
     public class CheeseData
     {
+        /*
         private static List<Cheese> cheeses = new List<Cheese>();
 
         public static List<Cheese> GetAll()
@@ -29,5 +30,6 @@ namespace MK_CheeseMVC.Models
         {
             return cheeses.Single(x => x.CheeseId == id);
         }
+        */
     }
 }

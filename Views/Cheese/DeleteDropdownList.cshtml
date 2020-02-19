@@ -8,7 +8,7 @@
         <select class="form-control" name="cheeseIds">
             @foreach (var cheese in ViewBag.Cheeses)
             {
-                <option id="@cheese.CheeseId" value="@cheese.CheeseId">@("Cheese Name - " + cheese.Name + " Cheese Description - " + cheese.Description)</option>
+                <option id="@cheese.ID" value="@cheese.ID">@("Cheese Name - " + cheese.Name + " Cheese Description - " + cheese.Description)</option>
             }
         </select>
         <input type="submit" value="Remove Selected Cheese(s)"  />

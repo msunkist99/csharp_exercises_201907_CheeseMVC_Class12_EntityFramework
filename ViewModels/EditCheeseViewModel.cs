@@ -12,7 +12,7 @@ namespace MK_CheeseMVC.ViewModels
 
         public  EditCheeseViewModel CreateCheeseViewModel(Cheese cheese)
         {
-            this.CheeseId = cheese.CheeseId;
+            this.CheeseId = cheese.ID;
             this.Name = cheese.Name;
             this.Description = cheese.Description;
             this.Type = cheese.Type;
