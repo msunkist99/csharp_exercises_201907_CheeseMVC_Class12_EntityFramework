@@ -1,6 +1,6 @@
 using System;
 
-namespace MK_CheeseMVC.Models
+namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models
 {
     public class ErrorViewModel
     {

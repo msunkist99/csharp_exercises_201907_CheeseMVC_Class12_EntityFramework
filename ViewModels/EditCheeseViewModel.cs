@@ -1,10 +1,10 @@
-﻿using MK_CheeseMVC.Models;
+﻿using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MK_CheeseMVC.ViewModels
+namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
 {
     public class EditCheeseViewModel : AddCheeseViewModel
     {

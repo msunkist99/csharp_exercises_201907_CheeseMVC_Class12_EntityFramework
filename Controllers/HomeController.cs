@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MK_CheeseMVC.Models;
+using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models;
 
-namespace MK_CheeseMVC.Controllers
+namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
 {
     public class HomeController : Controller
     {

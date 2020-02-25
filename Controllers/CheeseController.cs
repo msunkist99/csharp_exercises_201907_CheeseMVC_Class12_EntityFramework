@@ -4,15 +4,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Data;
 using Microsoft.AspNetCore.Mvc;
-using MK_CheeseMVC.Models;
-using MK_CheeseMVC.ViewModels;
+using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models;
+using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels;
 
-namespace MK_CheeseMVC.Controllers
+namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
 {
     public class CheeseController : Controller
     {
         private CheeseDbContext context;
 
+        // constructor
         public CheeseController(CheeseDbContext dbContext)
         {
             context = dbContext;
