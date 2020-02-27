@@ -9,5 +9,7 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models
     {
         public int ID { get; set; }
         public string Name { get; set; }
+
+        public IList<Cheese> Cheeses { get; set; }
     }
 }

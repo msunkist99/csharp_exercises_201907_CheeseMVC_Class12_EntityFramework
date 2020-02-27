@@ -15,7 +15,7 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
             this.CheeseId = cheese.ID;
             this.Name = cheese.Name;
             this.Description = cheese.Description;
-            this.Type = cheese.Type;
+            this.CategoryID = cheese.CategoryID;
             this.Rating = cheese.Rating;
 
             return this;

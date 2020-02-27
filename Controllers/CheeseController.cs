@@ -6,6 +6,7 @@ using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Data;
 using Microsoft.AspNetCore.Mvc;
 using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models;
 using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels;
+using Microsoft.EntityFrameworkCore;
 
 namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
 {
@@ -18,48 +19,39 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
         {
             context = dbContext;
         }
-
-        //static List<string> Cheeses = new List<string>();
-        //static Dictionary<string, string> Cheeses = new Dictionary<string,string>();
-        //static Dictionary<string, Cheese> Cheeses = new Dictionary<string, Cheese>();
-
         [HttpGet]
         public IActionResult Index()
         {
-            List<Cheese> cheeses = context.Cheeses.ToList();
-            //List<Cheese> cheeses = CheeseData.GetAll();
-            //ViewBag.cheeses = CheeseData.GetAll();
-            //ViewBag.error = null;
+            IList<Cheese> cheeses = context.Cheeses.Include(c=> c.Category).ToList();
+
             return View(cheeses);
         }
 
         [HttpGet]
         public IActionResult Add()
         {
-            //ViewBag.title = "Add Cheese";
-            //ViewBag.error = Error;
-
-            AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel();
+            // this will pass a list of Categories to the AddCheeseViewModel constructor
+            AddCheeseViewModel addCheeseViewModel = new AddCheeseViewModel(context.Categories.ToList());
 
             return View(addCheeseViewModel);
         }
 
         [HttpPost]
-        //public IActionResult Add(string name, string description)
-        //public IActionResult NewCheese(Cheese cheese)
         public IActionResult Add(AddCheeseViewModel addCheeseViewModel)
         {
             if (ModelState.IsValid)
             {
+                CheeseCategory cheeseCategory = context.Categories.Single(c => c.ID == addCheeseViewModel.CategoryID);
+
                 Cheese cheese = new Cheese()
                 {
                     Name = addCheeseViewModel.Name,
                     Description = addCheeseViewModel.Description,
-                    Type = addCheeseViewModel.Type,
+                    CategoryID = cheeseCategory.ID,
+                    Category = cheeseCategory,
                     Rating = addCheeseViewModel.Rating
                 };
 
-                //CheeseData.Add(cheese);
                 context.Cheeses.Add(cheese);
                 context.SaveChanges();
 
@@ -73,7 +65,6 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
         public IActionResult DeleteCheckbox()
         {
             ViewBag.title = "Remove Cheeses with Checkboxes";
-            //ViewBag.cheeses = CheeseData.GetAll();
             ViewBag.cheeses = context.Cheeses.ToList();
 
             return View();
@@ -83,7 +74,6 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
         public IActionResult DeleteDropdownList()
         {
             ViewBag.title = "Remove Cheeses with Dropdown List";
-            //ViewBag.cheeses = CheeseData.GetAll();
             ViewBag.cheeses = context.Cheeses.ToList();
 
             return View();
@@ -96,7 +86,6 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
 
             foreach (int cheeseId in cheeseIds)
             {
-                //CheeseData.Remove(cheeseId);
                 context.Cheeses.Remove(context.Cheeses.Single(p => p.ID == cheeseId));
             }
 
@@ -109,9 +98,6 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
         public IActionResult Edit(int cheeseId)
         {
             ViewBag.title = "Edit Cheeses";
-            //ViewBag.cheese = CheeseData.GetById(cheeseId);
-
-            //Cheese cheese = CheeseData.GetById(cheeseId);
             Cheese cheese = context.Cheeses.Single(p => p.ID == cheeseId);
 
             EditCheeseViewModel editCheeseViewModel = new EditCheeseViewModel();
@@ -124,12 +110,9 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
         {
             if (ModelState.IsValid) 
             {
-                //CheeseData.Remove(editCheeseViewModel.CheeseId);
                 context.Cheeses.Remove(context.Cheeses.Single(p => p.ID == editCheeseViewModel.CheeseId));
 
                 Cheese cheese = editCheeseViewModel.CreateCheese();
-
-                //CheeseData.Add(cheese);
 
                 context.Cheeses.Add(cheese);
                 context.SaveChanges();
