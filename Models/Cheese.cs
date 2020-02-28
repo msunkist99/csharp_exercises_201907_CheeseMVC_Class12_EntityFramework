@@ -16,5 +16,13 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models
         // dotnet ef migrationsadd CategoryID
         // dotnet ef database update
         public int CategoryID { get; set; }
+
+        IList<CheeseMenu> CheeseMenus;
+
+        // constructor
+        public Cheese()
+        {
+
+        }
     }
 }

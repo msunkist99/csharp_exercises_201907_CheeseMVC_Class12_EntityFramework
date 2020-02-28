@@ -1,0 +1,16 @@
+﻿@model csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels.AddMenuItemViewModel
+
+<h1>Add Item to Menu:  @Model.Menu.Name</h1>
+
+<form asp-controller="Menu" asp-action="AddItem" method="post">
+
+    <div class="form-group">
+        <label asp-for="CheeseId"></label>
+        <select asp-for="CheeseId" asp-items="@Model.Cheeses"></select>
+    </div>
+
+    <input type="hidden" name="MenuID" value="@Model.Menu.ID" />
+
+    <input type="submit" value="Add Menu Item" />
+
+</form>

@@ -1,0 +1,12 @@
+﻿@model csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels.ViewMenuViewModel
+
+
+<h1>@Model.Menu.Name</h1>
+
+@foreach (var item in Model.Items)
+{
+    <ul>@item.Cheese.Name</ul>
+}
+
+<p><a asp-controller="Menu" asp-action="AddItem" asp-route-id=@Model.Menu.ID>Add Menu Item</a></p>
+
