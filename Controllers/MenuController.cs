@@ -55,13 +55,13 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
         }
 
         [HttpGet]
-        public IActionResult ViewMenu(int id)
+        public IActionResult ViewMenu(int menuId)
         {
-            Menu menu = context.Menus.Single(x => x.ID == id);
+            Menu menu = context.Menus.Single(x => x.ID == menuId);
 
             List<CheeseMenu> items = context.CheeseMenus
                                             .Include(item => item.Cheese)
-                                            .Where(cm => cm.MenuID == id)
+                                            .Where(cm => cm.MenuID == menuId)
                                             .ToList();
 
             ViewMenuViewModel viewMenuViewModel = new ViewMenuViewModel(items);

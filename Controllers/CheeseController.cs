@@ -100,7 +100,7 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Controllers
             ViewBag.title = "Edit Cheeses";
             Cheese cheese = context.Cheeses.Single(p => p.ID == cheeseId);
 
-            EditCheeseViewModel editCheeseViewModel = new EditCheeseViewModel();
+            EditCheeseViewModel editCheeseViewModel = new EditCheeseViewModel(context.Categories.ToList());
 
             return View(editCheeseViewModel.CreateCheeseViewModel(cheese));
         }

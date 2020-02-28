@@ -19,10 +19,9 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models
 
         IList<CheeseMenu> CheeseMenus;
 
-        // constructor
+        // enpty constructor for binding
         public Cheese()
         {
-
         }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,8 +10,33 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
     public class EditCheeseViewModel : AddCheeseViewModel
     {
         public int CheeseId { get; set; }
+        public List<SelectListItem> CheeseTypes { get; set; }
 
-        public  EditCheeseViewModel CreateCheeseViewModel(Cheese cheese)
+        // empty constructor
+        public EditCheeseViewModel()
+        {
+        }
+
+        // constructor
+        public EditCheeseViewModel(IEnumerable<CheeseCategory> categories)
+        {
+            /*
+            Categories = new List<SelectListItem>();
+
+            foreach (CheeseCategory category in categories)
+            {
+                Categories.Add(new SelectListItem
+                {
+                    Value = category.ID.ToString(),
+                    Text = category.Name
+                });
+            }
+            */
+
+            BuildCatetoriesSelectListItems(categories);
+        }
+
+        public EditCheeseViewModel CreateCheeseViewModel(Cheese cheese)
         {
             this.CheeseId = cheese.ID;
             this.Name = cheese.Name;

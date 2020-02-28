@@ -29,7 +29,7 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
         [Display(Name = "Cheese Rating")]
         public int Rating { get; set; }
 
-        public List<SelectListItem> CheeseTypes { get; set; }
+        //public List<SelectListItem> CheeseTypes { get; set; }
 
         // empty constructor required for model binding
         public AddCheeseViewModel()
@@ -39,6 +39,9 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
         //constructor
         public AddCheeseViewModel(IEnumerable<CheeseCategory> categories)
         {
+            BuildCatetoriesSelectListItems(categories);
+
+            /*
             Categories = new List<SelectListItem>();
 
             foreach (CheeseCategory category in categories)
@@ -49,6 +52,7 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
                     Text = category.Name
                 });
             }
+            */
         }
 
         public virtual Cheese CreateCheese()
@@ -62,6 +66,20 @@ namespace csharp_exercises_201907_CheeseMVC_Class12_EntityFramework.ViewModels
             };
 
             return cheese;
+        }
+
+        public void BuildCatetoriesSelectListItems(IEnumerable<CheeseCategory> categories)
+        {
+            Categories = new List<SelectListItem>();
+
+            foreach (CheeseCategory category in categories)
+            {
+                Categories.Add(new SelectListItem
+                {
+                    Value = category.ID.ToString(),
+                    Text = category.Name
+                });
+            }
         }
     }
 }

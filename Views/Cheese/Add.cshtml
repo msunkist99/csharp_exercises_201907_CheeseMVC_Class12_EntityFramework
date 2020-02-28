@@ -19,7 +19,8 @@
 
         <div class="form-group">
             <label asp-for="CategoryID"></label>
-            <select asp-for="CategoryID" asp-items="Model.Categories"></select>
+            <select asp-for="CategoryID" asp-items="@Model.Categories"></select>
+            <span asp-validation-for="Categories"></span>
         </div>
 
         <div class="form-group">
